@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>Ocean Green Beach Resort</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+  	<script src="js/jquery.min.js"></script>
+ 	<script src="js/bootstrap.min.js"></script>
+
+
+ 	<script type="text/javascript" src="js/datepicker.js"></script>
+        <link href="css/demo.css"       rel="stylesheet" type="text/css" />
+        <link href="css/datepicker.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+//<![CDATA[
+
+/*
+        A "Reservation Date" example using two datePickers
+        --------------------------------------------------
+
+        * Functionality
+
+        1. When the page loads:
+                - We clear the value of the two inputs (to clear any values cached by the browser)
+                - We set an "onchange" event handler on the startDate input to call the setReservationDates function
+        2. When a start date is selected
+                - We set the low range of the endDate datePicker to be the start date the user has just selected
+                - If the endDate input already has a date stipulated and the date falls before the new start date then we clear the input's value
+
+        * Caveats (aren't there always)
+
+        - This demo has been written for dates that have NOT been split across three inputs
+
+*/
+
+function makeTwoChars(inp) {
+        return String(inp).length < 2 ? "0" + inp : inp;
+}
+
+function initialiseInputs() {
+        // Clear any old values from the inputs (that might be cached by the browser after a page reload)
+        document.getElementById("sd").value = "";
+        document.getElementById("ed").value = "";
+
+        // Add the onchange event handler to the start date input
+        datePickerController.addEvent(document.getElementById("sd"), "change", setReservationDates);
+}
+
+var initAttempts = 0;
+
+function setReservationDates(e) {
+        // Internet Explorer will not have created the datePickers yet so we poll the datePickerController Object using a setTimeout
+        // until they become available (a maximum of ten times in case something has gone horribly wrong)
+
+        try {
+                var sd = datePickerController.getDatePicker("sd");
+                var ed = datePickerController.getDatePicker("ed");
+        } catch (err) {
+                if(initAttempts++ < 10) setTimeout("setReservationDates()", 50);
+                return;
+        }
+
+        // Check the value of the input is a date of the correct format
+        var dt = datePickerController.dateFormat(this.value, sd.format.charAt(0) == "m");
+
+        // If the input's value cannot be parsed as a valid date then return
+        if(dt == 0) return;
+
+        // At this stage we have a valid YYYYMMDD date
+
+        // Grab the value set within the endDate input and parse it using the dateFormat method
+        // N.B: The second parameter to the dateFormat function, if TRUE, tells the function to favour the m-d-y date format
+        var edv = datePickerController.dateFormat(document.getElementById("ed").value, ed.format.charAt(0) == "m");
+
+        // Set the low range of the second datePicker to be the date parsed from the first
+        ed.setRangeLow( dt );
+        
+        // If theres a value already present within the end date input and it's smaller than the start date
+        // then clear the end date value
+        if(edv < dt) {
+                document.getElementById("ed").value = "";
+        }
+}
+
+function removeInputEvents() {
+        // Remove the onchange event handler set within the function initialiseInputs
+        datePickerController.removeEvent(document.getElementById("sd"), "change", setReservationDates);
+}
+
+datePickerController.addEvent(window, 'load', initialiseInputs);
+datePickerController.addEvent(window, 'unload', removeInputEvents);
+
+//]]>
+</script>
+
+</head>
+<body>
+	<div id="background">
+		<div id="page">
+			<div id="header">
+				<div id="logo">
+					<a href="index.html"><img src="images/log.png" alt="LOGO" height="112" width="118"></a>
+				</div>
+				<div id="navigation">
+					<ul>
+						<li class="selected">
+							<a href="index.html">Home</a>
+						</li>
+						<li>
+							<a href="about.html">About</a>
+						</li>
+						<li>
+							<a href="rooms.html">Rooms</a>
+						</li>
+						<li>
+							<a href="foods.html">Food</a>
+						</li>
+						<li>
+							<a href="contact.html">Contact</a>
+						</li>
+						<li>
+							<a href="reservation.html">Reservation</a>
+						</li>
+						<li>
+							<a href="gallery.html">Ocean Gallery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="contents">
+				<div id="adbox">
+					<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  						<!-- Indicators -->
+  						<ol class="carousel-indicators">
+    						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    						<li data-target="#myCarousel" data-slide-to="1"></li>
+    						<li data-target="#myCarousel" data-slide-to="2"></li>
+    						<li data-target="#myCarousel" data-slide-to="3"></li>
+  						</ol>
+
+  						<!-- Wrapper for slides -->
+  						<div class="carousel-inner">
+    						<div class="item active">
+      							<img src="img/8.jpg">
+      							<div class="carousel-caption">
+        							<h3>Ocean Green Villas</h3>
+        							<p>You are always welcome here!</p>
+    							</div>
+		    				</div>
+
+    						<div class="item">
+      							<img src="img/6.jpg">
+      							<div class="carousel-caption">
+        							<h3>Ocean Green Villas</h3>
+        							<p>You are always welcome here!</p>
+      							</div>
+    						</div>
+
+    						<div class="item">
+      							<img src="img/1.jpg">
+      							<div class="carousel-caption">
+        							<h3>Ocean Green Villas</h3>
+        							<p>You are always welcome here!</p>
+      							</div>
+    						</div>
+
+    						<div class="item">
+      							<img src="img/4.jpg">
+      							<div class="carousel-caption">
+      								<h3>Ocean Green Villas</h3>
+        							<p>You are always welcome here!</p>
+      							</div>
+    						</div>
+  						</div>
+
+  						<!-- Left and right controls -->
+  						<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    						<span class="glyphicon glyphicon-chevron-left"></span>
+    						<span class="sr-only">Previous</span>
+  						</a>
+  						<a class="right carousel-control" href="#myCarousel" data-slide="next">
+    						<span class="glyphicon glyphicon-chevron-right"></span>
+    						<span class="sr-only">Next</span>
+  						</a>
+					</div>
+				</div>
+				<div id="main">
+					<div class="box">
+						<div>
+							<div>
+								<h3>Want to buy Villas</h3>
+								<ul>
+									<li>
+										<h4><a href="news.html">Buying of Villas</a></h4>
+										<span>August 07, 2017</span>
+										<p>
+											THE PROCESS OF BUYING YOUR VILLA AT THE OCEAN GREEN BEACH VILLA ESTATE
+                                            To buy  villa in “Ocean Green Beach Villa Estate”, you may use the request form or download it and send it to us by mail or fax or post.
+										</p>
+									</li>
+									<li>
+										<h4><a href="news.html">Special Offers</a></h4>
+										<span>August 08, 2017</span>
+										<p>
+											Take advantage of one of our special offers. Choose option that suits you best!
+
+                                            Take advantage of our pre- sale  promotion special offers. Receive info package inclusive unit prices and special offer!
+										</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="testimonials" class="box">
+						<div>
+							<div>
+								<h3>The Packages</h3>
+								<p>
+									Ocean Green Beach Villas offers villas to fit your desires, taste and needs!
+                                    “Ocean Green Beach Villas” is an ideal holiday gated estate community to get the most out of your vacation, for couples, families or amongst friends
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sidebar">
+					<div class="section">
+						<a href="rooms.html"><img src="images/rooms.png" alt="Img"></a>
+					</div>
+					<div class="section">
+						<a href="gallery.html"><img src="images/dive-site.png" alt="Img"></a>
+					</div>
+					<div class="section">
+						<a href="foods.html"><img src="images/food.png" alt="Img"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div>
+				<ul class="navigation">
+					<li class="active">
+						<a href="index.html">Home</a>
+					</li>
+					<li>
+						<a href="about.html">About</a>
+					</li>
+					<li>
+						<a href="rooms.html">Rooms</a>
+					</li>
+					
+					<li>
+						<a href="foods.html">Food</a>
+					</li>
+					
+					<li>
+						<a href="contact.html">Contact</a>
+					</li>
+				</ul>
+				<div id="connect">
+					<a href="#" target="_blank" class="pinterest"></a> <a href="#" target="_blank" class="facebook"></a>
+				</div>
+			</div>
+			<p>
+				© 2017 by MAXWISDO OCEAN GREEN BEACH RESORT. All Rights Reserved
+			</p>
+		</div>
+	</div>
+</body>
+</html>
